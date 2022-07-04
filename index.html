@@ -1,0 +1,149 @@
+<html>
+
+<head>
+
+    <script>
+        var saldo = 10000.50; //Float 1.36
+        var extrato = ("Saque: R$ 2000  29/2\n Saque: R$300  05/3\n Deposito: R$5000 17/3")
+        var senha = 3589
+        var cadastro = prompt("Olá qual seu nome ?")
+        var nome = []
+        nome.push(cadastro)
+        var saudacao = alert("Olá " + nome + " é um prazer ter você por aqui!")
+        function inicio() {
+            var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferencia 6) Sair'));
+            //Inicio com switch/case
+            switch (escolha) {
+                case 1: ver_saldo();
+                    break
+                case 2: ver_extrato();
+                    break
+                case 3: fazer_saque();
+                    break
+                case 4: fazer_deposito();
+                    break
+                case 5: fazer_transferencia();
+                    break
+                case 6: sair();
+                    break
+                default:
+                    erro();
+            }
+        }
+
+        function ver_saldo() {
+            var pedir_senha = prompt("Insira a senha:")
+            if (pedir_senha == senha) {
+
+                alert('Seu saldo atual é: ' + saldo);
+                inicio();
+            } else {
+                alert("Senha incorreta!")
+                inicio();
+            }
+        }
+
+        function fazer_deposito() {
+            var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+            // Not a Number
+            if (isNaN(deposito) || deposito === '') {
+                alert('Por favor, informe um número:');
+                fazer_deposito();
+            }
+            if (deposito <= 0) {
+                alert("Operação não autorizada!")
+                fazer_deposito();
+            }
+            var pedir_senha = prompt("Insira a senha:")
+            if (pedir_senha == senha) {
+                saldo += deposito;
+                alert("Depósito realizado com sucesso")
+                alert("Seu saldo após o deposito é de: " + saldo)
+                inicio();
+            }
+            else {
+                alert("Senha incorreta!")
+                inicio();
+            }
+        }
+
+        function fazer_saque() {
+            var saque = parseFloat(prompt('Qual o valor para saque?'));
+            if (saque > saldo || saque <= 0) {
+                alert("Operação não autorizada!")
+                fazer_saque();
+            }
+            if (isNaN(saque) || saque === '') {
+                alert('Por favor, informe um número:');
+                fazer_saque();
+            } else {
+                var pedir_senha = prompt("Insira a senha:")
+                if (pedir_senha == senha) {
+                    saldo -= saque;
+                    alert("Saque realizado com sucesso!")
+                    alert("Saldo após saque: " + saldo)
+                    inicio();
+                } else {
+                    alert("Senha incorreta!")
+                    inicio();
+                }
+            }
+        }
+
+        function ver_extrato() {
+            var pedir_senha = prompt("Insira a senha:")
+            if (pedir_senha == senha) {
+                alert(extrato)
+                inicio();
+            } else {
+                alert("Senha incorreta!")
+                inicio();
+            }
+        }
+
+        function fazer_transferencia() {
+            var transferencia = parseFloat(prompt("Informe a conta que deseja fazer a transferencia"));
+            if (isNaN(transferencia) || transferencia === '') {
+                alert("Por favor, informe um número:");
+                fazer_transferencia();
+            }
+            var valor_transferencia = prompt("Digite o valor que deseja transferir para conta: " + transferencia);
+            if (valor_transferencia > saldo || valor_transferencia <= 0) {
+                alert("Operação não autorizada")
+                fazer_transferencia();
+            }
+            var pedir_senha = prompt("Insira a senha:")
+            if (pedir_senha == senha) {
+                saldo -= valor_transferencia
+                alert("Saldo após transferencia: " + saldo)
+                inicio();
+            } else {
+                fazer_transferencia();
+            }
+        }
+
+        function erro() {
+            alert('Por favor, informe um número entre 1 e 6');
+            inicio();
+        }
+
+        function sair() {
+            var confirma = confirm('Você deseja sair?');
+
+            if (confirma) {
+                var despedida = alert("Obrigado por utilzar nossos serviços " + nome + " foi um prazer ter você  por aqui")
+                window.close();
+            } else {
+                inicio();
+            }
+        }
+
+        inicio();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
